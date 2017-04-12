@@ -1,5 +1,5 @@
 {
-  "name": "js-client-nahid",
+  "name": "js-client-boilderplate-nahid",
   "version": "0.0.3",
   "description": "Basic browserify/babelify/uglify/scss boilerplate meant for quickly setting up straightforward UI projects.",
   "main": "index.js",
