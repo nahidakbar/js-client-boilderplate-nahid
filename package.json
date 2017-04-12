@@ -1,0 +1,23 @@
+{
+  "name": "js-client-nahid",
+  "version": "0.0.3",
+  "description": "Basic browserify/babelify/uglify/scss boilerplate meant for quickly setting up straightforward UI projects.",
+  "main": "index.js",
+  "author": "Nahid Akbar",
+  "license": "MIT",
+  "dependencies": {
+    "babel-polyfill": "^6.23.0",
+    "babel-preset-latest": "^6.24.0",
+    "babelify": "^7.3.0",
+    "browserify": "^14.3.0",
+    "chokidar": "^1.6.1",
+    "d3": "^4.7.4",
+    "d3-html": "^0.0.4",
+    "fs-extra": "^2.1.2",
+    "node-sass": "^4.5.2",
+    "uglifyify": "^3.0.4",
+    "watch": "^1.0.2",
+    "watchify": "^3.9.0",
+    "yargs": "^7.0.2"
+  }
+}
