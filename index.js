@@ -50,7 +50,7 @@ function scss(config, release, watch)
   let start = Date.now();
   const sass = require('node-sass');
   sass.render({
-    file: output,
+    file: input,
     outputStyle: release? 'compressed' : 'expanded'
   }, function(err, result) {
     if (err)
