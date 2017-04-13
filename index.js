@@ -89,6 +89,14 @@ function releaseSCSS(config)
   }
 }
 
+function error(err)
+{
+  delete err.stream;
+  delete err._babel;
+  delete err.codeFrame;
+  console.log(err);
+}
+
 function js(config, uglify=false, watchify=false)
 {
   const browserify = require("browserify");
@@ -96,7 +104,9 @@ function js(config, uglify=false, watchify=false)
   const output = path.join(config.base, config.dist, path.basename(config.js));
   
   let options = {
-    paths: [ path.dirname(input) ]
+    paths: [ path.dirname(input) ],
+    cache: {},
+    packageCache: {}
   };
   
   if (watchify)
@@ -104,19 +114,19 @@ function js(config, uglify=false, watchify=false)
     options.plugin = [require('watchify')];
   }
   
-  let b = browserify(input, options)
-    .transform("babelify", { presets: config.jsBabelifyPresets });
+  let b = browserify(input, options).on('error', error)
+    .transform("babelify", { presets: config.jsBabelifyPresets }).on('error', error);
 
   if (uglify)
   {
-    b = b.transform("uglifyify", { global: true, sourcemap: false });
+    b = b.transform("uglifyify", { global: true, sourcemap: false }).on('error', error);
   }
 
   function bundle(ids=[])
   {
     console.log("JS", input, "=>" ,output);
     ids => ids.forEach(id => console.log(id, 'changed'));
-    b.bundle()
+    b.bundle().on('error', error)
       .pipe(fs.createWriteStream(output));
   }
   if (watchify)
