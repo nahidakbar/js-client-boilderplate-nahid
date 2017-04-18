@@ -1,6 +1,6 @@
-# Basic browserify/babelify/scss boilerplate
+# Basic JS (Browserify/Babelify/D3)/CSS(SCSS) Web Client Boilerplate Builder
 
-Meant for quickly setting up UI codebase for simple projects. Assumes nodejs > 7.0.
+Meant for quickly setting up UI codebases for simple projects. Assumes nodejs > 7.0.
 
 <pre>
 "scripts": {
