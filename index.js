@@ -89,12 +89,19 @@ function releaseSCSS(config)
   }
 }
 
-function error(err)
+function errorFunction(exit=false)
 {
-  delete err.stream;
-  delete err._babel;
-  delete err.codeFrame;
-  console.log(err);
+  return function(err)
+  {
+    delete err.stream;
+    delete err._babel;
+    delete err.codeFrame;
+    console.log(err);
+    if (exit)
+    {
+      process.exit(1);
+    }
+  }
 }
 
 function js(config, uglify=false, watchify=false)
@@ -102,6 +109,8 @@ function js(config, uglify=false, watchify=false)
   const browserify = require("browserify");
   const input = path.join(config.base, config.js);
   const output = path.join(config.base, config.dist, path.basename(config.js));
+  
+  const error = errorFunction(!watchify);
   
   let options = {
     paths: [ path.dirname(input) ],
