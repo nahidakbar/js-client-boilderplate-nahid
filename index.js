@@ -124,7 +124,7 @@ function js(config, uglify=false, watchify=false)
   }
   
   let b = browserify(input, options).on('error', error)
-    .transform("babelify", { presets: config.jsBabelifyPresets }).on('error', error);
+    .transform("babelify", { presets: config.jsBabelifyPresets.map(name => require(`babel-preset-${name}`)) }).on('error', error);
 
   if (uglify)
   {
