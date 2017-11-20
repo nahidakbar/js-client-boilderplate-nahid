@@ -21,7 +21,11 @@ const config = require('yargs')
     },
     'js-babelify-presets' : {
       type: 'array',
-      default: ['latest'],
+      default: ['env'],
+    },
+    'js-babelify-plugins' : {
+      type: 'array',
+      default: ['transform-runtime'],
     },
     'scss' : {
       type: 'string',
@@ -124,7 +128,10 @@ function js(config, uglify=false, watchify=false)
   }
   
   let b = browserify(input, options).on('error', error)
-    .transform("babelify", { presets: config.jsBabelifyPresets.map(name => require(`babel-preset-${name}`)) }).on('error', error);
+    .transform("babelify", {
+      presets: config.jsBabelifyPresets.map(name => require(`babel-preset-${name}`)),
+      plugins: config.jsBabelifyPlugins.map(name => require(`babel-plugin-${name}`))
+    }).on('error', error);
 
   if (uglify)
   {

@@ -1,13 +1,14 @@
 {
   "name": "js-client-boilderplate-nahid",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "Basic browserify/babelify/uglify/scss boilerplate meant for quickly setting up straightforward UI projects.",
   "main": "index.js",
   "author": "Nahid Akbar <mail@nahidakbar.net> (http://nahidakbar.net/)",
   "license": "MIT",
   "dependencies": {
     "babel-polyfill": "latest",
-    "babel-preset-latest": "latest",
+    "babel-preset-env": "latest",
+    "babel-plugin-transform-runtime": "latest",
     "babelify": "^7.3.0",
     "browserify": "^14.3.0",
     "chokidar": "^1.6.1",
