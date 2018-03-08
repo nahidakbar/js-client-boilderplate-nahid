@@ -32,7 +32,7 @@ const config = require('yargs')
       describe: 'scss to compile.  e.g. css/index.scss',
     },
     'static' : {
-      type: 'string',
+      type: 'array',
       describe: 'static files to copy over. e.g. static',
     },
     'command' : {
@@ -180,27 +180,30 @@ function releaseJS(config)
 
 function static(config, watch)
 {
-  const input = path.join(config.base, config.static);
-  const output = path.join(config.base, config.dist);
-  //console.log(input, "=>" ,output);
-  function copy(fn)
+  config.static.forEach(value =>
   {
-    console.log("STATIC", path.join(input, fn), "=>" ,path.join(output, fn));
-    fs.copy(path.join(input, fn), path.join(output, fn));
-  }
-  if (watch)
-  {
-    const chokidar = require('chokidar');
-    chokidar.watch(input).on('change', function(fn)
+    const input = path.join(config.base, value);
+    const output = path.join(config.base, config.dist);
+    //console.log(input, "=>" ,output);
+    function copy(fn)
     {
-      fn = path.relative(input, fn)
-      if (fn.indexOf('.') !== 0)
+      console.log("STATIC", path.join(input, fn), "=>" ,path.join(output, fn));
+      fs.copy(path.join(input, fn), path.join(output, fn));
+    }
+    if (watch)
+    {
+      const chokidar = require('chokidar');
+      chokidar.watch(input).on('change', function(fn)
       {
-        copy(fn);
-      }
-    });
-  }
-  fs.readdirSync(input).map(copy);
+        fn = path.relative(input, fn)
+        if (fn.indexOf('.') !== 0)
+        {
+          copy(fn);
+        }
+      });
+    }
+    fs.readdirSync(input).map(copy);
+  })
 }
 
 function watchStatic(config)
